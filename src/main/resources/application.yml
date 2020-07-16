@@ -1,0 +1,99 @@
+server:
+  port: 18181
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  datasource:
+    druid:
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: /druid/*,*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico
+        session-stat-enable: true
+        session-stat-max-count: 10
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: true
+        login-username: admin
+        login-password: admin
+    dynamic:
+      ############# 默认false,建议线上关闭  #################
+      p6spy: true
+      ############# Druid 连接池配置  #################
+      druid:
+        initial-size: 1
+        ### 最大的活跃连接数 ####
+        max-active: 20
+        #### 指定必须保持连接的最小值 ####
+        min-idle: 3
+        #### 测试SQL ###
+        validation-query: SELECT 'x' FROM DUAL
+        #### 超时等待时间 ####
+        max-wait: 60000
+        ####  配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 ####
+        time-between-eviction-runs-millis: 60000
+        ##### 指定一个空闲连接最少空闲多久后可被清除，单位是毫秒 #####
+        min-evictable-idle-time-millis: 300000
+        ##### 当连接空闲时，是否执行连接测试. #######
+        test-while-idle: true
+        ###### 当从连接池借用连接时，是否测试该连接. ####
+        test-on-borrow: false
+        ####### 在连接归还到连接池时是否测试该连接 #######
+        test-on-return: false
+        #######  配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙   #######
+        #####   监控统计用的filter:stat日志用的filter:log4j防御sql注入的filter:wall #######
+        filters: stat,log4j
+        ############### 以下是监控的配置，不做过多说明，详细配置请找度娘 ##########
+      primary: master_1
+      datasource:
+        master_1:
+          ############  JDBC 配置  ###################
+          type: com.alibaba.druid.pool.DruidDataSource
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: 123456
+          #          password: root
+          #          url: jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
+          url: jdbc:mysql://192.168.56.128:3306/testdb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
+
+  #redis配置
+  redis:
+    database: 0
+    host: localhost
+    lettuce:
+      pool:
+        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+      shutdown-timeout: 100ms
+    password: wghcache@2020
+    port: 6379
+
+#mybatis plus设置
+mybatis-plus:
+  type-aliases-package: cn.gathub.entity
+  mapper-locations: classpath:mapper/*.xml
+  global-config:
+    banner: false
+    db-config:
+      #主键类型
+      id-type: auto
+      # 默认数据库表下划线命名
+      table-underline: true
+  configuration:
+    map-underscore-to-camel-case: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#日志配置
+logging:
+  level:
+    cn.gathub.mapper: debug
+
+
+
