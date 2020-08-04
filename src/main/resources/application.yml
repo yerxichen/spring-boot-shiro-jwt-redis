@@ -2,6 +2,12 @@ server:
   port: 18181
 
 spring:
+  activiti:
+    check-process-definitions: true #自动检查、部署流程定义文件
+    database-schema-update: true #自动更新数据库结构
+    #流程定义文件存放目录
+    process-definition-location-prefix: classpath:/processes/
+    #process-definition-location-suffixes: #流程文件格式
   servlet:
     multipart:
       max-file-size: 10MB
@@ -55,10 +61,10 @@ spring:
           type: com.alibaba.druid.pool.DruidDataSource
           driver-class-name: com.mysql.cj.jdbc.Driver
           username: root
-          password: 123456
+          password: root
           #          password: root
           #          url: jdbc:mysql://localhost:3306/mydb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
-          url: jdbc:mysql://192.168.56.128:3306/testdb?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
+          url: jdbc:mysql://localhost:3306/activiti?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&useSSL=false
 
   #redis配置
   redis:
