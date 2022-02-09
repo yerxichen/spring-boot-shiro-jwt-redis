@@ -32,7 +32,7 @@
         <p6spy.version>3.8.0</p6spy.version>
         <fastjson.version>1.2.59</fastjson.version>
         <jwt.version>3.7.0</jwt.version>
-        <boot-shiro.version>1.4.0</boot-shiro.version>
+        <boot-shiro.version>1.7.1</boot-shiro.version>
         <pagehelper.version>1.2.13</pagehelper.version>
     </properties>
 
